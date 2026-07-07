@@ -7,13 +7,13 @@ function getUserName(Callback){
     },3000);
 }
 getUserName(function(name){
-    console.log("Welcome "+name)
+    console.log("Welcome "+name) 
 })
 
 //  "Callback Hell" 
 
 // getUserDate(userId, function(user){
-//     console.log("User aa gya:"+user.name);
+//     console.log("User aa gya:"+user.name); 
 
 //     createOrder(user.cart, function(order){
 //         console.log("Order ban gaya , iD hai ",+order.id);
