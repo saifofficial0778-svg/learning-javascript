@@ -14,7 +14,7 @@ async function checkSpeed() {
 
     // 3. High Salt Rounds (Server par bojh!)
     console.time("Round 15 Took");
-    await bcrypt.hash(password, 10);
+    await bcrypt.hash(password, 12);
     console.timeEnd("Round 15 Took");
 }
 

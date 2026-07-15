@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Excel/CSV Import Demo</title>
+</head>
+<body>
+
+  <h2>Student Data Import</h2>
+  <!-- 1. File upload karne ke liye input element -->
+  <input type="file" id="csvFileInput" accept=".csv" />
+  
+  <script>
+    const fileInput = document.getElementById("csvFileInput");
+
+    // Jab bhi user koi file select karega, ye event fire hoga
+    fileInput.addEventListener("change", function(e) {
+      const file = e.target.files[0]; // User ki select ki hui file nikali
+      if (!file) return;
+
+      // 🔥 1. FileReader ka object banaya (Jo file read karega)
+      const reader = new FileReader();
+
+      // 🔥 2. Jab FileReader file ko poora padh lega, tab ye function chalega
+      reader.onload = function(event) {
+        const textContent = event.target.result; // File ka saara text isme hai
+        
+        // STEP 1: Saari rows ko nayi line (\n) se split kiya
+        const rows = textContent.split("\n");
+        
+        // Pehli row headers hoti hai (Name,Age,Fee Status), isliye use alag kar diya
+        const headers = rows[0]; 
+
+        // STEP 2: Baaki bachi hui data rows par loop chalaya (Index 1 se shuru kiya)
+        const importedStudents = [];
+        
+        for (let i = 1; i < rows.length; i++) {
+          const currentRow = rows[i].trim(); // trim() se extra spaces hataye
+          
+          if (currentRow === "") continue; // Agar koi khali row hai to skip karo
+
+          // 🔥 TUMHARA LOGIC: Comma se split karke array banaya
+          const data = currentRow.split(",");
+          
+          // Array se object banaya
+          const studentObject = {
+            name: data[0],
+            age: data[1],
+            feeStatus: data[2]
+          };
+          
+          // Array mein push kar diya
+          importedStudents.push(studentObject);
+        }
+
+        // 🔥 Final Result: Saara data JavaScript array ban chuka hai!
+        console.log("Mubarak ho! Pura imported data ye raha:", importedStudents);
+        alert(`Total ${importedStudents.length} students import ho gaye! Console check karo bhai.`);
+      };
+
+      // 🔥 3. FileReader ko bola ki file ko as a Text read karna shuru kare
+      reader.readAsText(file);
+    });
+  </script>
+
+</body>
+</html>
